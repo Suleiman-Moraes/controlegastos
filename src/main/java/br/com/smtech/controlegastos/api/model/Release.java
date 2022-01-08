@@ -24,7 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "release")
+@Table(name = "trelease")
 public class Release extends Model {
 
     @Column(nullable = false)
@@ -40,10 +40,6 @@ public class Release extends Model {
     // Only if you have an appointment date
     @Column(name = "confirm_payment", nullable = false)
     private Boolean confirmPayment = Boolean.FALSE;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")

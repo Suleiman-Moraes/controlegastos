@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.modelmapper.ModelMapper;
 
@@ -29,6 +31,7 @@ import lombok.ToString;
 @Table(name = "person")
 public class Person extends Model {
 
+    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date birth;
 

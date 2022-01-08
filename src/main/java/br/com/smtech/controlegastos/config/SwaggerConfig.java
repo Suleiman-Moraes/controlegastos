@@ -50,44 +50,44 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2).enable(Boolean.TRUE).select()
                 .apis(RequestHandlerSelectors
                         .basePackage("br.com.smtech.controlegastos.api.controller"))
-                .paths(PathSelectors.any()).build();
-                // .securityContexts(Collections.singletonList(securityContext()))
-                // .securitySchemes(Arrays.asList(securitySchema())).apiInfo(apiInfo())
-                // .globalOperationParameters(Collections.singletonList(new ParameterBuilder()
-                //         .name("Authorization").modelRef(new ModelRef("string"))
-                //         .parameterType("header").required(false).hidden(true)
-                //         .defaultValue(swaggerToken).build()));
+                .paths(PathSelectors.any()).build()
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Arrays.asList(securitySchema())).apiInfo(apiInfo())
+                .globalOperationParameters(Collections.singletonList(new ParameterBuilder()
+                        .name("Authorization").modelRef(new ModelRef("string"))
+                        .parameterType("header").required(false).hidden(true)
+                        .defaultValue(swaggerToken).build()));
     }
 
-    // public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    //     registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
 
-    //     registry.addResourceHandler("/webjars/**")
-    //             .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    // }
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 
-    // @Bean
-    // public SecurityScheme apiKey() {
-    //     return new ApiKey(HttpHeaders.AUTHORIZATION, "apiKey", "header");
-    // }
+    @Bean
+    public SecurityScheme apiKey() {
+        return new ApiKey(HttpHeaders.AUTHORIZATION, "apiKey", "header");
+    }
 
-    // @Bean
-    // public SecurityScheme apiCookieKey() {
-    //     return new ApiKey(HttpHeaders.COOKIE, "apiKey", "cookie");
-    // }
+    @Bean
+    public SecurityScheme apiCookieKey() {
+        return new ApiKey(HttpHeaders.COOKIE, "apiKey", "cookie");
+    }
 
-    // private OAuth securitySchema() {
+    private OAuth securitySchema() {
 
-    //     List<AuthorizationScope> authorizationScopeList = new ArrayList<>();
-    //     authorizationScopeList.add(new AuthorizationScope("read", "read all"));
-    //     authorizationScopeList.add(new AuthorizationScope("write", "access all"));
+        List<AuthorizationScope> authorizationScopeList = new ArrayList<>();
+        authorizationScopeList.add(new AuthorizationScope("read", "read all"));
+        authorizationScopeList.add(new AuthorizationScope("write", "access all"));
 
-    //     List<GrantType> grantTypes = new ArrayList<>();
-    //     GrantType passwordCredentialsGrant = new ResourceOwnerPasswordCredentialsGrant("/oauth/token");
-    //     grantTypes.add(passwordCredentialsGrant);
+        List<GrantType> grantTypes = new ArrayList<>();
+        GrantType passwordCredentialsGrant = new ResourceOwnerPasswordCredentialsGrant("/oauth/token");
+        grantTypes.add(passwordCredentialsGrant);
 
-    //     return new OAuth("oauth2", authorizationScopeList, grantTypes);
-    // }
+        return new OAuth("oauth2", authorizationScopeList, grantTypes);
+    }
 
     private SecurityContext securityContext() {
         return SecurityContext.builder().securityReferences(defaultAuth()).build();
@@ -103,11 +103,11 @@ public class SwaggerConfig {
         return Collections.singletonList(new SecurityReference("oauth2", authorizationScopes));
     }
 
-    // @Bean
-    // public SecurityConfiguration security() {
-    //     return new SecurityConfiguration("angular", "@ngul@r0", "", "", "Bearer access token",
-    //             ApiKeyVehicle.HEADER, HttpHeaders.AUTHORIZATION, "");
-    // }
+    @Bean
+    public SecurityConfiguration security() {
+        return new SecurityConfiguration("angular", "@ngul@r0", "", "", "Bearer access token",
+                ApiKeyVehicle.HEADER, HttpHeaders.AUTHORIZATION, "");
+    }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Spring Boot REST API").description("\"Web Service\"")

@@ -1,8 +1,11 @@
 package br.com.smtech.controlegastos.api.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,9 +13,11 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import br.com.smtech.controlegastos.api.dto.CategoryListDTO;
 import br.com.smtech.controlegastos.api.enums.ExpenseClassificationEnum;
 import br.com.smtech.controlegastos.api.enums.OperationEnum;
 import br.com.smtech.controlegastos.library.model.Model;
@@ -22,6 +27,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@SqlResultSetMapping(name = CategoryListDTO.CATEGORY_LIST_DTO_MAPPING, classes = {
+        @ConstructorResult(targetClass = CategoryListDTO.class, columns = {
+                @ColumnResult(name = "id", type = Long.class),
+                @ColumnResult(name = "monthId", type = Long.class),
+                @ColumnResult(name = "itemId", type = Long.class),
+                @ColumnResult(name = "name", type = String.class),
+                @ColumnResult(name = "classification", type = String.class),
+                @ColumnResult(name = "operation", type = String.class),
+                @ColumnResult(name = "amount", type = Double.class),
+                @ColumnResult(name = "expectedValue", type = Double.class),
+                @ColumnResult(name = "dateExpected", type = Date.class) }) })
 @Getter
 @Setter
 @ToString
@@ -68,9 +84,6 @@ public class Category extends Model {
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Item> items;
-
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private List<Expected> expecteds;
 
     public Category(Long id) {
         this.id = id;

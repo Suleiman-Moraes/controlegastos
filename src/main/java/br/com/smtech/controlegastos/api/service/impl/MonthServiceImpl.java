@@ -29,6 +29,7 @@ public class MonthServiceImpl extends CrudPatternServiceImpl<Month> implements M
 
     @Override
     public Page<MonthDTO> findByFilter(FilterBasicDto filter) {
+        filter.setUserId(userService.findByToken().getId());
         return repository.findByFilter(filter);
     }
 

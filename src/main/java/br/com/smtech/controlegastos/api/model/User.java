@@ -45,7 +45,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "user")
-// TODO
 // public class User implements IUser {
 public class User {
 
