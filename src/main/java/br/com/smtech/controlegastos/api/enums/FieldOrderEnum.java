@@ -13,7 +13,7 @@ public enum FieldOrderEnum {
     MONTH_AMOUNT_CREDIT("month.amount_credit"),
     MONTH_EXPECTED_VALUE_DEBT("month.expected_value_debt"),
     MONTH_EXPECTED_VALUE_CREDIT("month.expected_value_credit"),
-    MONTH_YEAR_MONTH("month.year, month.month"),
+    MONTH_YEAR_MONTH("month.year DESC, month.month"),
     ITEM_DATE_EXPECTED_CATEGORY_NAME("item.date_expected, category.name");
     
     private String value;
