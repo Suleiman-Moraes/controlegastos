@@ -5,7 +5,10 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.modelmapper.ModelMapper;
+
 import br.com.smtech.controlegastos.api.enums.MonthEnum;
+import br.com.smtech.controlegastos.api.model.Month;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,7 +35,7 @@ public class MonthDTO implements Serializable {
 
     private Double expectedValueCredit;
 
-    //MonthDTOMapping
+    // MonthDTOMapping
     public MonthDTO(Long id, Integer month, Integer year, Double amountDebt,
             Double amountCredit,
             Double expectedValueDebt, Double expectedValueCredit) {
@@ -44,5 +47,11 @@ public class MonthDTO implements Serializable {
         this.amountCredit = amountCredit;
         this.expectedValueDebt = expectedValueDebt;
         this.expectedValueCredit = expectedValueCredit;
+    }
+
+    public static MonthDTO create(Month object) {
+        MonthDTO dto = new ModelMapper().map(object, MonthDTO.class);
+        dto.setMonthDescription(object.getMonth() != null ? object.getMonth().getDescription() : "-");
+        return dto;
     }
 }
